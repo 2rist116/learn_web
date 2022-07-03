@@ -1,10 +1,11 @@
 from flask import Flask
-
+from flask_migrate import Migrate
 from webapp.db import db
 from webapp.user.models import User
 from flask_login import LoginManager
 from webapp.user.views import blueprint as user_blueprint
 from webapp.admin.views import blueprint as admin_blueprint
+from webapp.news.views import blueprint as news_blueprint
 
 
 # set FLASK_APP=webapp && set FLASK_ENV=development && set FLASK_DEBUG=1 && flask run
@@ -21,6 +22,7 @@ def create_app():
     login_manager.login_view = 'login'
     app.register_blueprint(user_blueprint)
     app.register_blueprint(admin_blueprint)
+    app.register_blueprint(news_blueprint)
 
     @login_manager.user_loader
     def load_user(user_id):
